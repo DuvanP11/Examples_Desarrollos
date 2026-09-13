@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ByteNova × Smartline · Demo Fase 1 — Marketing inteligente y medición</title>
+  <meta name="description" content="Demostración interactiva de cómo agentes de IA coordinan la planificación, creación, distribución y análisis de campañas digitales para Smartline. Fase 1: Marketing + Medición.">
+  <link rel="icon" href="assets/img/bytenova.jpeg" type="image/jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<!-- Sprite de iconos (SVG en línea, sin recursos externos) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M13.5 8.5l2 2" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M3 11.5 21 4l-7.5 17-2.5-7.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M11 13.5 21 4" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z" fill="currentColor"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="10" y="10" width="4" height="4" fill="currentColor"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M12 4v16M6 14l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11m0-6.5a1.5 1.5 0 0 1 3 0V11m0-4.5a1.5 1.5 0 0 1 3 0V13m0-3a1.5 1.5 0 0 1 3 0v4a7 7 0 0 1-7 7h-1.2a6 6 0 0 1-4.9-2.5L4.4 15a1.6 1.6 0 0 1 2.6-1.9L8 14.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-road" viewBox="0 0 24 24"><path d="M4 20l3-16h10l3 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 5v3M12 11v3M12 17v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-meta" viewBox="0 0 24 24"><path d="M3 14.5c0-4 2-8 4.6-8 2 0 3.1 2 4.4 4.6C13.3 8.5 14.4 6.5 16.4 6.5c2.6 0 4.6 4 4.6 8 0 2-.9 3.5-2.4 3.5-1.9 0-3-2.6-4.2-5.2-.8-1.7-1.5-3.2-2.4-3.2s-1.6 1.5-2.4 3.2C8.4 15.4 7.3 18 5.4 18 3.9 18 3 16.5 3 14.5z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M6 10v9M6 5.8v.3M11 19v-9m0 4c0-2.3 1.5-4 3.6-4 2.2 0 3.4 1.5 3.4 4v5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M13 3v11.2a3.2 3.2 0 1 1-2.5-3.1" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M13 3c.4 2.6 2.1 4.3 4.8 4.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+</svg>
+
+<!-- Aviso permanente de demostración -->
+<div class="demo-strip" role="note">
+  <span class="demo-strip__tag">DEMO / SIMULACIÓN</span>
+  <span class="demo-strip__text">Las conexiones y métricas mostradas en esta demostración son simuladas y representan el funcionamiento conceptual de la solución.</span>
+</div>
+
+<!-- Cabecera de marcas -->
+<header class="brandbar">
+  <div class="container brandbar__inner">
+    <a class="logo-box logo-box--bytenova" href="#inicio" aria-label="ByteNova · construye la solución">
+      <img src="assets/img/bytenova.jpeg" alt="Logo ByteNova" width="1036" height="1024">
+      <span class="logo-box__caption">Construye la solución</span>
+    </a>
+    <p class="brandbar__tagline">Automatización inteligente para Smartline</p>
+    <a class="logo-box logo-box--smartline" href="#inicio" aria-label="Smartline · utiliza la solución">
+      <img src="assets/img/smartline.jpeg" alt="Logo Smartline" width="1542" height="688">
+      <span class="logo-box__caption">Utiliza la solución</span>
+    </a>
+  </div>
+</header>
+
+<!-- Navegación interna (fija al hacer scroll) -->
+<nav class="topnav" id="topnav" aria-label="Navegación principal">
+  <div class="container topnav__inner">
+    <button class="topnav__toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="topnav__links" id="navLinks">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#como-funciona">Cómo funciona</a></li>
+      <li><a href="#agentes">Agentes IA</a></li>
+      <li><a href="#plataformas">Plataformas</a></li>
+      <li><a href="#demostracion">Demostración</a></li>
+      <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#alcance">Alcance</a></li>
+    </ul>
+    <button class="btn btn--primary btn--sm topnav__cta" data-action="run">
+      <svg class="ico"><use href="#i-play"/></svg> Ejecutar demostración
+    </button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============================================================ INICIO -->
+<section class="hero" id="inicio">
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <span class="eyebrow">Fase 1 · Marketing + Medición</span>
+      <h1>Marketing inteligente y medición para Smartline</h1>
+      <p class="lead">Una demostración de cómo agentes de IA pueden coordinar la planificación, creación, distribución y análisis de campañas digitales.</p>
+
+      <div class="hero__brands" aria-label="Smartline y ByteNova">
+        <div class="logo-box logo-box--lg logo-box--smartline">
+          <img src="assets/img/smartline.jpeg" alt="Logo Smartline" width="1542" height="688">
+        </div>
+        <span class="hero__brands-plus" aria-hidden="true">+</span>
+        <div class="logo-box logo-box--lg logo-box--bytenova">
+          <img src="assets/img/bytenova.jpeg" alt="Logo ByteNova" width="1036" height="1024">
+        </div>
+      </div>
+
+      <div class="hero__actions">
+        <button class="btn btn--primary btn--lg" data-action="run">
+          <svg class="ico"><use href="#i-play"/></svg> Ver demostración
+        </button>
+        <a class="btn btn--ghost btn--lg" href="#como-funciona">Ver cómo funciona</a>
+        <a class="btn btn--ghost btn--lg" href="#agentes">Ver agentes</a>
+        <a class="btn btn--ghost btn--lg" href="#resultados">Ver resultados</a>
+      </div>
+    </div>
+
+    <!-- Panel "sistema en vivo" -->
+    <div class="hero__panel" aria-label="Vista rápida del sistema">
+      <div class="panel">
+        <div class="panel__head">
+          <span class="dot-live" data-live></span>
+          <span class="panel__title">Sistema de agentes</span>
+          <span class="tag tag--muted">Datos simulados</span>
+        </div>
+        <ul class="minilist" id="heroAgentList"></ul>
+        <div class="panel__foot">
+          <span class="panel__stage" id="heroStage">En espera del objetivo comercial</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ PROBLEMA Y FLUJO -->
+<section class="section section--alt" id="problema">
+  <div class="container">
+    <div class="split">
+      <div>
+        <span class="eyebrow">El punto de partida</span>
+        <h2>El problema que se quiere resolver</h2>
+        <p>Hoy la publicidad digital de un centro de formación suele ejecutarse plataforma por plataforma: se crea una campaña en Meta, otra en LinkedIn, otra en TikTok, y los resultados llegan en informes distintos, con formatos distintos y en momentos distintos.</p>
+        <p>Compararlos exige trabajo manual, y las decisiones sobre dónde invertir se toman con información incompleta o tarde.</p>
+        <p><strong>La Fase 1 automatiza y centraliza ese proceso</strong>: un objetivo comercial entra al sistema, varios agentes de IA lo convierten en campañas, las publican en las tres plataformas, recogen los resultados y explican qué está funcionando mejor.</p>
+      </div>
+      <div class="flowchain" aria-label="Flujo de la Fase 1">
+        <div class="flowchain__step"><span>1</span>Estrategia</div>
+        <div class="flowchain__step"><span>2</span>Creación de contenido</div>
+        <div class="flowchain__step"><span>3</span>Publicación</div>
+        <div class="flowchain__step"><span>4</span>Captación de prospectos</div>
+        <div class="flowchain__step"><span>5</span>Medición</div>
+        <div class="flowchain__step"><span>6</span>Análisis</div>
+        <div class="flowchain__step"><span>7</span>Optimización</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CÓMO FUNCIONA -->
+<section class="section" id="como-funciona">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">Recorrido paso a paso</span>
+      <h2>¿Cómo funciona?</h2>
+      <p>Ocho pasos, desde que Smartline define lo que quiere conseguir hasta que ve el resultado en su panel. Pulsa cada paso o usa las flechas.</p>
+    </div>
+
+    <div class="stepper" id="stepper">
+      <ol class="stepper__nav" id="stepperNav" aria-label="Pasos"></ol>
+
+      <div class="stepper__panel">
+        <div class="stepper__panels" id="stepperPanels">
+
+          <article class="step" data-step="1">
+            <span class="step__num">Paso 1</span>
+            <h3>Smartline define el objetivo</h3>
+            <p>Todo empieza con una decisión de negocio, expresada en lenguaje normal.</p>
+            <div class="objective-card">
+              <div class="logo-box logo-box--sm logo-box--smartline"><img src="assets/img/smartline.jpeg" alt="Smartline" width="1542" height="688"></div>
+              <div>
+                <span class="objective-card__label">Objetivo comercial</span>
+                <p class="objective-card__text">“Promocionar cursos y conseguir nuevos prospectos.”</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="step" data-step="2">
+            <span class="step__num">Paso 2</span>
+            <h3>La IA analiza el objetivo</h3>
+            <p>El Agente de Estrategia convierte la frase en una propuesta concreta.</p>
+            <div class="grid-2 grid-2--tight">
+              <div class="mini-card"><span class="mini-card__k">Público</span><span class="mini-card__v">Profesionales de 25 a 45 años que buscan actualizar sus habilidades</span></div>
+              <div class="mini-card"><span class="mini-card__k">Tipo de campaña</span><span class="mini-card__v">Captación de prospectos con formulario de contacto</span></div>
+              <div class="mini-card"><span class="mini-card__k">Mensaje</span><span class="mini-card__v">Crecimiento profesional a través de la formación</span></div>
+              <div class="mini-card"><span class="mini-card__k">Objetivo</span><span class="mini-card__v">Generar nuevos prospectos interesados en los cursos de Smartline</span></div>
+            </div>
+          </article>
+
+          <article class="step" data-step="3">
+            <span class="step__num">Paso 3</span>
+            <h3>Se prepara el contenido</h3>
+            <p>El Agente de Contenido redacta una propuesta de anuncio lista para revisar.</p>
+            <div class="ad-preview">
+              <div class="ad-preview__brand">
+                <div class="logo-box logo-box--xs logo-box--smartline"><img src="assets/img/smartline.jpeg" alt="Smartline" width="1542" height="688"></div>
+                <span>Patrocinado · Curso Data Analytics</span>
+              </div>
+              <div class="ad-preview__visual"><span>Imagen del curso</span></div>
+              <h4>Descubre nuevas habilidades y potencia tu perfil profesional</h4>
+              <p>Aprende Data Analytics con acompañamiento de expertos y aplica lo aprendido desde la primera semana.</p>
+              <span class="ad-preview__cta">Quiero más información</span>
+            </div>
+          </article>
+
+          <article class="step" data-step="4">
+            <span class="step__num">Paso 4</span>
+            <h3>Se distribuye la campaña</h3>
+            <p>El Agente de Distribución envía la misma campaña, adaptada a cada formato, a las tres plataformas.</p>
+            <div class="fanout">
+              <div class="fanout__source">Sistema ByteNova</div>
+              <div class="fanout__lines"><i></i><i></i><i></i></div>
+              <div class="fanout__targets">
+                <div class="platform-chip platform-chip--meta"><svg class="ico"><use href="#i-meta"/></svg>Meta</div>
+                <div class="platform-chip platform-chip--linkedin"><svg class="ico"><use href="#i-linkedin"/></svg>LinkedIn</div>
+                <div class="platform-chip platform-chip--tiktok"><svg class="ico"><use href="#i-tiktok"/></svg>TikTok</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="step" data-step="5">
+            <span class="step__num">Paso 5</span>
+            <h3>Llegan los resultados</h3>
+            <p>Las plataformas devuelven sus datos y el sistema los recibe en un único lugar, sin descargar informes a mano.</p>
+            <div class="fanout fanout--reverse">
+              <div class="fanout__targets">
+                <div class="platform-chip platform-chip--meta">Meta · 87 prospectos</div>
+                <div class="platform-chip platform-chip--linkedin">LinkedIn · 41 prospectos</div>
+                <div class="platform-chip platform-chip--tiktok">TikTok · 38 prospectos</div>
+              </div>
+              <div class="fanout__lines"><i></i><i></i><i></i></div>
+              <div class="fanout__source">Resultados centralizados <span class="tag tag--muted">Datos simulados</span></div>
+            </div>
+          </article>
+
+          <article class="step" data-step="6">
+            <span class="step__num">Paso 6</span>
+            <h3>Se analizan los resultados</h3>
+            <p>El Agente de Analítica pone las tres plataformas una al lado de la otra con las mismas métricas.</p>
+            <div class="compare-bars" id="stepCompare">
+              <div class="compare-bars__row"><span>Meta</span><div class="bar"><i style="--w:100%;--c:#2F80ED"></i></div><b>87 prospectos · $5.747 c/u</b></div>
+              <div class="compare-bars__row"><span>LinkedIn</span><div class="bar"><i style="--w:47%;--c:#0E3B66"></i></div><b>41 prospectos · $10.976 c/u</b></div>
+              <div class="compare-bars__row"><span>TikTok</span><div class="bar"><i style="--w:44%;--c:#1B1B1F"></i></div><b>38 prospectos · $9.211 c/u</b></div>
+              <span class="tag tag--muted">Datos simulados</span>
+            </div>
+          </article>
+
+          <article class="step" data-step="7">
+            <span class="step__num">Paso 7</span>
+            <h3>Se genera una recomendación</h3>
+            <p>El Agente de Optimización identifica oportunidades y las expresa como una acción concreta.</p>
+            <ul class="insights">
+              <li><svg class="ico"><use href="#i-spark"/></svg>Meta está generando más prospectos con menor coste.</li>
+              <li><svg class="ico"><use href="#i-spark"/></svg>LinkedIn presenta menor volumen pero mayor interés profesional.</li>
+              <li><svg class="ico"><use href="#i-spark"/></svg>TikTok presenta mayor alcance pero menor conversión.</li>
+            </ul>
+            <div class="recommendation">
+              <span class="recommendation__label">Recomendación</span>
+              <p>Redistribuir parte del presupuesto hacia la campaña con mejor coste por prospecto.</p>
+            </div>
+          </article>
+
+          <article class="step" data-step="8">
+            <span class="step__num">Paso 8</span>
+            <h3>Smartline visualiza el resultado</h3>
+            <p>Un panel ejecutivo resume inversión, prospectos y coste por plataforma para tomar decisiones.</p>
+            <div class="mini-dash">
+              <div class="kpi kpi--sm"><span class="kpi__label">Inversión total</span><span class="kpi__value">$1.300.000</span></div>
+              <div class="kpi kpi--sm"><span class="kpi__label">Prospectos</span><span class="kpi__value">166</span></div>
+              <div class="kpi kpi--sm"><span class="kpi__label">Coste por prospecto</span><span class="kpi__value">$7.831</span></div>
+              <div class="kpi kpi--sm"><span class="kpi__label">Conversiones</span><span class="kpi__value">25</span></div>
+            </div>
+            <div class="step__actions">
+              <a class="btn btn--ghost" href="#resultados">Ver el dashboard completo</a>
+              <button class="btn btn--primary" data-action="run"><svg class="ico"><use href="#i-play"/></svg> Ejecutar demostración</button>
+            </div>
+          </article>
+
+        </div>
+        <div class="stepper__controls">
+          <button class="btn btn--ghost btn--sm" id="stepPrev" aria-label="Paso anterior">← Anterior</button>
+          <span class="stepper__counter" id="stepCounter">Paso 1 de 8</span>
+          <button class="btn btn--ghost btn--sm" id="stepNext" aria-label="Paso siguiente">Siguiente →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ AGENTES -->
+<section class="section section--alt" id="agentes">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">Equipo de agentes</span>
+      <h2>Agentes de IA que intervienen</h2>
+      <p>No son <span id="agentCountText">cinco</span> robots independientes: un <strong>Orquestador IA</strong> reparte el trabajo, mantiene el orden del flujo y asegura que cada agente reciba lo que necesita del anterior.</p>
+    </div>
+
+    <div class="orchestra" id="orchestra" aria-label="Orquestador y agentes"></div>
+
+    <div class="agent-grid" id="agentGrid"></div>
+  </div>
+</section>
+
+<!-- ============================================================ PLATAFORMAS -->
+<section class="section" id="plataformas">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">Integraciones</span>
+      <h2>Cómo se conectan Meta, LinkedIn y TikTok</h2>
+      <p>En cada plataforma el recorrido es el mismo: ByteNova prepara la campaña, la plataforma la publica y devuelve los resultados, que vuelven a ByteNova para analizarse. <strong>Aquí se representa de forma visual; ninguna cuenta real está conectada.</strong></p>
+    </div>
+    <div class="platform-grid" id="platformGrid"></div>
+    <p class="legend-note">Las conexiones y métricas mostradas en esta demostración son simuladas y representan el funcionamiento conceptual de la solución.</p>
+  </div>
+</section>
+
+<!-- ============================================================ DEMOSTRACIÓN -->
+<section class="section section--alt" id="demostracion">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">Sistema en vivo</span>
+      <h2>Demostración interactiva</h2>
+      <p>Pulsa <strong>Ejecutar demostración</strong> para ver el flujo completo: el objetivo de Smartline recorre el sistema, se publica en las tres plataformas, regresan los resultados y se genera una recomendación.</p>
+    </div>
+
+    <div class="demo-controls">
+      <button class="btn btn--primary btn--lg" id="btnRun" data-action="run">
+        <svg class="ico"><use href="#i-play"/></svg> Ejecutar demostración
+      </button>
+      <button class="btn btn--ghost btn--lg" id="btnReset" data-action="reset">
+        <svg class="ico"><use href="#i-refresh"/></svg> Reiniciar demostración
+      </button>
+      <span class="demo-controls__status" id="demoStatus" aria-live="polite">Listo para ejecutar</span>
+    </div>
+
+    <div class="demo-layout">
+      <div class="panel demo-flow">
+        <div class="panel__head">
+          <span class="dot-live" data-live></span>
+          <span class="panel__title">Flujo del sistema</span>
+          <span class="tag tag--muted">Simulación</span>
+        </div>
+        <div class="flow-wrap" id="flowWrap"></div>
+      </div>
+
+      <aside class="demo-side">
+        <div class="panel">
+          <div class="panel__head"><span class="panel__title">Etapas</span></div>
+          <ol class="stages" id="stageList"></ol>
+        </div>
+        <div class="panel">
+          <div class="panel__head"><span class="panel__title">Estado de los agentes</span></div>
+          <ul class="minilist" id="demoAgentList"></ul>
+        </div>
+        <div class="panel">
+          <div class="panel__head"><span class="panel__title">Plataformas</span></div>
+          <ul class="minilist" id="demoPlatformList"></ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="panel demo-output" id="demoOutput" hidden>
+      <div class="panel__head">
+        <svg class="ico ico--accent"><use href="#i-spark"/></svg>
+        <span class="panel__title">Recomendación para Smartline</span>
+        <span class="tag tag--muted">Datos simulados</span>
+      </div>
+      <ul class="insights" id="demoInsights"></ul>
+      <div class="recommendation">
+        <span class="recommendation__label">Recomendación</span>
+        <p id="demoRecommendation"></p>
+      </div>
+      <div class="step__actions">
+        <a class="btn btn--primary" href="#resultados">Ver resultados</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ RESULTADOS -->
+<section class="section" id="resultados">
+  <div class="container">
+    <div class="section__head section__head--row">
+      <div>
+        <span class="eyebrow">Panel ejecutivo</span>
+        <h2>Resultados de la campaña</h2>
+        <p>Un único panel para ver cuánto se invirtió, cuántos prospectos llegaron y qué plataforma lo hizo mejor.</p>
+      </div>
+      <div class="dash-brand">
+        <div class="logo-box logo-box--sm logo-box--smartline"><img src="assets/img/smartline.jpeg" alt="Smartline" width="1542" height="688"></div>
+        <span class="tag tag--warn">Datos de demostración</span>
+      </div>
+    </div>
+
+    <div class="dashboard" id="dashboard">
+      <div class="dashboard__empty" id="dashEmpty">
+        <svg class="ico"><use href="#i-chart"/></svg>
+        <h3>El panel se completa al ejecutar la demostración</h3>
+        <p>Verás la inversión, los prospectos y la comparación entre Meta, LinkedIn y TikTok construirse en tiempo real.</p>
+        <button class="btn btn--primary" data-action="run"><svg class="ico"><use href="#i-play"/></svg> Ejecutar demostración</button>
+      </div>
+
+      <div class="kpis" id="kpis"></div>
+
+      <div class="charts">
+        <div class="chart-card" id="chartBudget"><h3>Inversión por plataforma</h3><div class="chart"></div></div>
+        <div class="chart-card" id="chartLeads"><h3>Prospectos por plataforma</h3><div class="chart"></div></div>
+        <div class="chart-card" id="chartCpl"><h3>Coste por prospecto</h3><div class="chart"></div></div>
+        <div class="chart-card" id="chartConv"><h3>Conversiones</h3><div class="chart"></div></div>
+        <div class="chart-card chart-card--wide" id="chartTrend"><h3>Evolución de prospectos (14 días)</h3><div class="chart"></div></div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="cmp-table" id="cmpTable">
+          <caption>Comparación entre plataformas · datos simulados</caption>
+          <thead><tr><th>Plataforma</th><th>Inversión</th><th>Alcance</th><th>Impresiones</th><th>Clics</th><th>CTR</th><th>Prospectos</th><th>Coste / prospecto</th><th>Conversiones</th><th>Coste / conversión</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="panel dash-reco" id="dashReco">
+        <div class="panel__head">
+          <svg class="ico ico--accent"><use href="#i-spark"/></svg>
+          <span class="panel__title">Qué publicidad funciona mejor</span>
+        </div>
+        <ul class="insights" id="dashInsights"></ul>
+        <div class="recommendation">
+          <span class="recommendation__label">Decisión comercial sugerida</span>
+          <p id="dashRecommendation"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ BENEFICIOS -->
+<section class="section section--alt" id="beneficios">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">Valor para el negocio</span>
+      <h2>¿Qué obtiene Smartline?</h2>
+    </div>
+    <div class="benefit-grid">
+      <div class="benefit"><svg class="ico"><use href="#i-hand"/></svg><h3>Mayor control sobre la publicidad</h3><p>Una sola entrada para decidir qué se promociona y con qué mensaje.</p></div>
+      <div class="benefit"><svg class="ico"><use href="#i-eye"/></svg><h3>Visibilidad sobre el rendimiento de cada plataforma</h3><p>Las mismas métricas para Meta, LinkedIn y TikTok, comparables entre sí.</p></div>
+      <div class="benefit"><svg class="ico"><use href="#i-users"/></svg><h3>Identificación de los canales que generan mejores prospectos</h3><p>Se ve claramente de dónde llegan los contactos y cuánto cuesta cada uno.</p></div>
+      <div class="benefit"><svg class="ico"><use href="#i-cpu"/></svg><h3>Menor dependencia de análisis manual</h3><p>Los agentes recopilan y comparan; el equipo se centra en decidir.</p></div>
+      <div class="benefit"><svg class="ico"><use href="#i-db"/></svg><h3>Información centralizada para tomar decisiones</h3><p>Un panel con la foto completa, siempre actualizada.</p></div>
+      <div class="benefit"><svg class="ico"><use href="#i-road"/></svg><h3>Base para futuras fases de automatización</h3><p>La estructura de agentes se amplía sin rehacer lo construido.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ ANTES / DESPUÉS -->
+<section class="section" id="antes-despues">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">El cambio</span>
+      <h2>Antes vs. después</h2>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-col--before">
+        <h3>Antes</h3>
+        <ol class="vflow">
+          <li>Publicidad</li>
+          <li>Datos dispersos</li>
+          <li>Revisión manual</li>
+          <li>Análisis</li>
+          <li>Decisiones</li>
+        </ol>
+        <p class="ba-col__note">Cada plataforma por separado, informes distintos y decisiones tardías.</p>
+      </div>
+      <div class="ba-col ba-col--after">
+        <h3>Después</h3>
+        <ol class="vflow">
+          <li>Objetivo</li>
+          <li>Agentes IA</li>
+          <li>Publicidad multicanal</li>
+          <li>Resultados centralizados</li>
+          <li>Análisis automático</li>
+          <li>Recomendaciones</li>
+        </ol>
+        <p class="ba-col__note">Un flujo continuo, coordinado por el Orquestador IA, con la información en un solo lugar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ ALCANCE -->
+<section class="section section--alt" id="alcance">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">Delimitación</span>
+      <h2>Alcance de la Fase 1</h2>
+      <p>Esta es una demostración comercial. Muestra cómo funcionaría la solución, no una implementación conectada a cuentas reales.</p>
+    </div>
+    <div class="scope">
+      <div class="scope__col scope__col--yes">
+        <h3>Incluye</h3>
+        <ul>
+          <li>Automatización conceptual del flujo publicitario</li>
+          <li>Integración preparada para plataformas publicitarias</li>
+          <li>Seguimiento de campañas</li>
+          <li>Centralización de métricas</li>
+          <li>Identificación de prospectos</li>
+          <li>Analítica de rendimiento</li>
+          <li>Recomendaciones de optimización</li>
+          <li>Dashboard de resultados</li>
+        </ul>
+      </div>
+      <div class="scope__col scope__col--no">
+        <h3>Lo que NO incluye esta demostración</h3>
+        <ul>
+          <li>Conexiones reales con cuentas publicitarias</li>
+          <li>Publicación real de campañas</li>
+          <li>Uso de presupuesto real</li>
+          <li>Datos reales de clientes</li>
+          <li>Automatización de pagos</li>
+          <li>Implementación definitiva de producción</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brands">
+      <div class="logo-box logo-box--bytenova"><img src="assets/img/bytenova.jpeg" alt="Logo ByteNova" width="1036" height="1024"></div>
+      <div class="footer__rel">
+        <strong>ByteNova</strong> construye la solución<br>
+        <strong>Smartline</strong> la utiliza para mejorar su adquisición y medición
+      </div>
+      <div class="logo-box logo-box--smartline"><img src="assets/img/smartline.jpeg" alt="Logo Smartline" width="1542" height="688"></div>
+    </div>
+    <p class="footer__legal">Demo comercial · Fase 1 — Marketing + Medición. Las conexiones con Meta, LinkedIn y TikTok y todas las métricas son simuladas y representan el funcionamiento conceptual de la solución. No se utilizan cuentas, presupuestos ni datos reales.</p>
+  </div>
+</footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
