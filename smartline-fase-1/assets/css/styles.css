@@ -355,10 +355,12 @@ button { font: inherit; }
 .agent-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .7rem; transition: border-color .25s, box-shadow .25s; }
 .agent-card[data-state="processing"] { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(31, 95, 214, .18), var(--shadow); }
 .agent-card[data-state="done"] { border-color: #8CD2AF; }
+.agent-card__top { display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-wrap: nowrap; }
+.agent-card__top .badge { font-size: .66rem; padding: .22em .55em; }
 .agent-card__head { display: flex; align-items: center; gap: .7rem; }
 .agent-card__icon { width: 40px; height: 40px; border-radius: 10px; background: var(--blue-soft); color: var(--blue); display: grid; place-items: center; flex: none; }
 .agent-card__icon .ico { width: 22px; height: 22px; }
-.agent-card__num { font-size: .7rem; font-weight: 700; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.agent-card__num { font-size: .72rem; font-weight: 700; color: var(--blue); letter-spacing: .08em; text-transform: uppercase; }
 .agent-card h3 { font-size: 1rem; margin: 0; }
 .agent-card__role { color: var(--muted); font-size: .9rem; margin: 0; }
 .agent-card__out { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: .7rem .8rem; font-size: .84rem; }
@@ -366,7 +368,7 @@ button { font: inherit; }
 .agent-card__out dl { margin: 0; display: grid; gap: .35rem; }
 .agent-card__out dt { font-weight: 700; color: var(--navy); font-size: .78rem; }
 .agent-card__out dd { margin: 0; color: var(--text); }
-.agent-card__foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
+.agent-card__tag { display: inline-flex; margin-top: .6rem; }
 
 /* ---------- plataformas ------------------------------------------ */
 .platform-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }

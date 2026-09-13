@@ -154,15 +154,19 @@
       const dl = el('dl');
       a.output.rows.forEach(([k, v]) => { dl.appendChild(el('dt', { text: k })); dl.appendChild(el('dd', { text: v })); });
       grid.appendChild(el('article', { class: 'agent-card', 'data-agent-card': a.id, 'data-state': 'waiting' }, [
+        el('div', { class: 'agent-card__top' }, [
+          el('span', { class: 'agent-card__num', text: `Agente ${i + 1}` }),
+          el('span', { class: 'badge', 'data-agent-badge': a.id, 'data-state': 'waiting', text: CFG.agentStates.waiting })
+        ]),
         el('div', { class: 'agent-card__head' }, [
           el('div', { class: 'agent-card__icon', html: icon(a.icon) }),
-          el('div', {}, [el('span', { class: 'agent-card__num', text: `Agente ${i + 1}` }), el('h3', { text: a.name })])
+          el('h3', { text: a.name })
         ]),
         el('p', { class: 'agent-card__role', text: a.role }),
-        el('div', { class: 'agent-card__out' }, [el('h4', { text: a.output.title }), dl]),
-        el('div', { class: 'agent-card__foot' }, [
-          el('span', { class: 'tag tag--muted', text: 'Ejemplo simulado' }),
-          el('span', { class: 'badge', 'data-agent-badge': a.id, 'data-state': 'waiting', text: CFG.agentStates.waiting })
+        el('div', { class: 'agent-card__out' }, [
+          el('h4', { text: a.output.title }),
+          dl,
+          el('span', { class: 'tag tag--muted agent-card__tag', text: 'Ejemplo simulado' })
         ])
       ]));
     });
