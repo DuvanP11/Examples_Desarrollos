@@ -1,0 +1,164 @@
+/* =====================================================================
+   Contrato de prestación de servicios · Editor, firma y exportación
+   ===================================================================== */
+
+:root {
+  --bg: #E9EEF4;
+  --paper: #FFFFFF;
+  --ink: #1B1F26;
+  --ink-soft: #4A5261;
+  --line: #C9D2DE;
+  --accent: #1F3A5F;
+  --accent-2: #2C5282;
+  --field-bg: #FFF7D6;
+  --field-line: #E0B94A;
+  --field-ph: #8A6D1C;
+  --ok: #1E7A4A;
+  --font-doc: 'Arial', 'Helvetica Neue', Helvetica, 'Liberation Sans', sans-serif;
+  --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-ui); font-size: 14px; }
+
+/* ---------- barra ------------------------------------------------ */
+.toolbar {
+  position: sticky; top: 0; z-index: 20; background: var(--accent); color: #fff;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .6rem 1.2rem; flex-wrap: wrap;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .18);
+}
+.toolbar__brand { display: flex; flex-direction: column; line-height: 1.2; }
+.toolbar__title { font-weight: 700; font-size: 1rem; }
+.toolbar__sub { font-size: .75rem; opacity: .8; }
+.toolbar__actions { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.toolbar__status { font-size: .75rem; opacity: .85; margin-right: .4rem; }
+.toolbar__pending { font-size: .72rem; background: rgba(255, 255, 255, .14); padding: .25em .6em; border-radius: 999px; }
+.toolbar__pending:empty { display: none; }
+.btn {
+  font: inherit; font-weight: 600; font-size: .85rem; padding: .5em .95em; border-radius: 7px; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, .35); background: rgba(255, 255, 255, .08); color: #fff;
+}
+.btn:hover { background: rgba(255, 255, 255, .18); }
+.btn--primary { background: #fff; color: var(--accent); border-color: #fff; }
+.btn--primary:hover { background: #EEF3FA; }
+.btn:disabled { opacity: .6; cursor: default; }
+.btn--on { background: #F6C445; color: #2B2200; border-color: #F6C445; }
+.btn--on:hover { background: #FFD25C; }
+
+.hint {
+  max-width: 21.59cm; margin: 1rem auto 0; background: #FFF9E6; border: 1px solid #E9D48F; color: #5B4A12;
+  border-radius: 8px; padding: .7rem 2.4rem .7rem 1rem; font-size: .85rem; line-height: 1.5; position: relative;
+}
+.hint__f { background: var(--field-bg); border-bottom: 1px dashed var(--field-line); padding: 0 .3em; color: var(--field-ph); }
+.hint__close { position: absolute; right: .5rem; top: .4rem; border: 0; background: transparent; font-size: 1.2rem; cursor: pointer; color: inherit; }
+.hint[hidden] { display: none; }
+
+.mobilebar { display: none; }
+.pagefoot { text-align: center; font-size: .78rem; color: var(--ink-soft); padding: 1.5rem 1rem 2.5rem; }
+
+.toast {
+  position: fixed; bottom: 1.2rem; left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff;
+  padding: .6rem 1rem; border-radius: 8px; font-size: .85rem; z-index: 30; box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+}
+
+/* ---------- hoja ------------------------------------------------- */
+.page-wrap { padding: 1rem; }
+.doc {
+  width: 21.59cm; max-width: 100%; min-height: 27.94cm; margin: 0 auto; background: var(--paper);
+  padding: 2.2cm 2.54cm 2.54cm; box-shadow: 0 1px 3px rgba(0, 0, 0, .1), 0 12px 40px -12px rgba(20, 40, 70, .35);
+  font-family: var(--font-doc); font-size: 10.5pt; line-height: 1.45; color: var(--ink); outline: none;
+}
+.doc.is-free { box-shadow: 0 0 0 3px rgba(246, 196, 69, .55), 0 12px 40px -12px rgba(20, 40, 70, .35); cursor: text; }
+
+.doc h1.doc-title { font-size: 14pt; font-weight: 700; text-align: center; margin: 0 0 .25em; letter-spacing: .02em; color: var(--ink); }
+.doc p.doc-subtitle { text-align: center; font-size: 10.5pt; color: var(--ink-soft); margin: 0 0 1.4em; font-style: italic; }
+.doc h2 { font-size: 11pt; font-weight: 700; text-transform: uppercase; margin: 1.5em 0 .5em; color: var(--ink); break-after: avoid; page-break-after: avoid; }
+.doc h3 { font-size: 10.5pt; font-weight: 700; margin: 1em 0 .35em; color: var(--ink); break-after: avoid; page-break-after: avoid; }
+.doc p { margin: 0 0 .6em; text-align: justify; orphans: 3; widows: 3; }
+.doc p.intro { margin-bottom: 1em; }
+.doc p.campo-largo { break-inside: avoid; page-break-inside: avoid; text-align: left; border: 1px solid var(--line); border-radius: 4px; padding: .5em .7em; min-height: 3.2em; background: #FAFBFD; }
+.doc p.note { margin-top: 2.5em; padding: .8em 1em; border: 1px solid var(--line); background: #F5F7FA; font-size: 9.5pt; color: var(--ink-soft); }
+.doc ul { margin: 0 0 .7em; padding-left: 1.5em; }
+.doc li { margin-bottom: .3em; text-align: justify; }
+.doc strong { font-weight: 700; }
+
+.doc table { width: 100%; border-collapse: collapse; margin: .3em 0 .9em; font-size: 9.5pt; }
+.doc th, .doc td { border: 1px solid #9AA6B5; padding: .35em .5em; vertical-align: top; text-align: left; }
+.doc th { background: #EEF2F7; font-weight: 700; font-size: 9pt; }
+.doc table.datos td:first-child { width: 38%; font-weight: 700; background: #F7F9FC; }
+.doc table.opciones td:first-child { width: 8%; text-align: center; }
+.doc table.opciones td:nth-child(2) { width: 27%; font-weight: 700; }
+.doc table.anexos td:first-child { width: 28%; font-weight: 700; }
+.doc table.entregables td:first-child { width: 5%; text-align: center; }
+.doc tr { break-inside: avoid; page-break-inside: avoid; }
+
+/* campos editables */
+.doc .f {
+  display: inline; background: var(--field-bg); border-bottom: 1px dashed var(--field-line); padding: 0 .2em;
+  border-radius: 2px; outline: none; box-decoration-break: clone; -webkit-box-decoration-break: clone; cursor: text;
+}
+.doc .f:focus { background: #FFF0B8; border-bottom-style: solid; }
+.doc .f:empty::before { content: '[● ' attr(data-ph) ']'; color: var(--field-ph); font-style: italic; }
+.doc .f:empty:focus::before { content: '\200B'; }
+.doc .f.is-filled { background: #F3F6FA; border-bottom-color: #B5C0CE; }
+.doc p.campo-largo .f { display: block; min-height: 2.6em; padding: .2em .3em; background: transparent; border: 0; }
+.doc p.campo-largo .f:empty::before { content: '[● ' attr(data-ph) ']'; }
+
+/* firmas */
+.doc .sign-grid { display: flex; flex-direction: column; gap: 1.2em; margin: 1em 0 1.5em; }
+.doc .sign-box { display: grid; grid-template-columns: 7.2cm 1fr; gap: 1em 1.4em; border: 1px solid var(--line); border-radius: 4px; padding: .8em 1em; break-inside: avoid; page-break-inside: avoid; }
+.doc .sign-box__role { grid-column: 1 / -1; font-weight: 700; text-transform: uppercase; font-size: 10pt; }
+.doc .sign-pad { position: relative; }
+.doc .sign-pad canvas { display: block; width: 100%; height: 3cm; border-bottom: 1px solid var(--ink); background: #FFFFFF; touch-action: none; cursor: crosshair; border-radius: 3px 3px 0 0; }
+.doc .sign-pad__label { font-size: 8.5pt; color: var(--ink-soft); margin-top: .25em; }
+.doc .sign-pad__tools { display: flex; gap: .4em; margin-top: .4em; flex-wrap: wrap; }
+.doc .sign-pad__tools button, .doc .sign-pad__tools label {
+  font: inherit; font-family: var(--font-ui); font-size: .75rem; padding: .3em .6em; border: 1px solid var(--line); border-radius: 5px;
+  background: #F5F7FA; color: var(--ink-soft); cursor: pointer;
+}
+.doc .sign-pad__tools input { display: none; }
+.doc .sign-pad__hint { position: absolute; top: 40%; left: 0; right: 0; text-align: center; color: #B8C0CC; font-size: 9pt; pointer-events: none; font-family: var(--font-ui); }
+.doc .sign-pad.has-ink .sign-pad__hint { display: none; }
+.doc .sign-fields { display: grid; gap: .45em; align-content: start; font-size: 9.5pt; }
+.doc .sign-fields div { display: grid; grid-template-columns: 9em 1fr; gap: .4em; border-bottom: 1px dotted #B5C0CE; padding-bottom: .15em; }
+.doc .sign-fields div span:first-child { font-weight: 700; }
+
+.doc .pagebreak { height: 0; border-top: 1px dashed #C9D2DE; margin: 1.6em 0; position: relative; }
+.doc .pagebreak::after { content: 'salto de página'; position: absolute; right: 0; top: -0.9em; font: 8pt var(--font-ui); color: #A0AAB8; }
+
+@media (max-width: 720px) {
+  .toolbar { position: static; }
+  .mobilebar { display: flex; gap: .5rem; position: fixed; bottom: 0; left: 0; right: 0; z-index: 20; padding: .5rem .8rem calc(.5rem + env(safe-area-inset-bottom)); background: var(--accent); box-shadow: 0 -2px 10px rgba(0,0,0,.2); }
+  .mobilebar .btn { flex: 1; }
+  .pagefoot { padding-bottom: 5rem; }
+  .doc { padding: 1.4cm 1cm 1.6cm; font-size: 10pt; }
+  .doc .sign-box { grid-template-columns: 1fr; }
+  .toolbar__status { display: none; }
+  .btn { font-size: .78rem; padding: .45em .7em; }
+}
+
+/* ---------- impresión / PDF -------------------------------------- */
+@page {
+  size: letter;
+  margin: 2.3cm 2.54cm 2.3cm;
+  @top-center { content: 'Contrato de prestación de servicios — Personas naturales y empresa (Colombia)'; font-family: Arial, Helvetica, sans-serif; font-size: 8pt; color: #666666; }
+  @bottom-center { content: 'Página ' counter(page) ' de ' counter(pages); font-family: Arial, Helvetica, sans-serif; font-size: 8.5pt; color: #444444; }
+}
+@media print {
+  html, body { background: #fff; }
+  .no-print { display: none !important; }
+  .page-wrap { padding: 0; }
+  .doc { width: auto; max-width: none; min-height: 0; margin: 0; padding: 0; box-shadow: none; font-size: 10.5pt; }
+  .doc .f { background: transparent; border-bottom: 0; padding: 0; border-radius: 0; }
+  .doc .f:empty::before { content: attr(data-out); color: var(--ink); font-style: normal; font-weight: 700; }
+  .doc p.campo-largo { background: transparent; }
+  .doc p.campo-largo .f:empty::before { content: attr(data-out); }
+  .doc .pagebreak { break-before: page; page-break-before: always; border: 0; margin: 0; }
+  .doc .pagebreak::after { display: none; }
+  .doc .sign-box { border-color: #9AA6B5; }
+  .doc .sign-pad canvas { border-bottom: 1px solid #000; }
+  .doc .sign-pad__hint { display: none; }
+  .doc table.datos td:first-child, .doc th { background: #EEF2F7 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .doc p.note { background: #F5F7FA !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

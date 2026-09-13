@@ -1,18 +1,22 @@
 # Examples_Desarrollos
 
-Repositorio de demostraciones desarrolladas por **ByteNova**.
+Repositorio de desarrollos y demostraciones de **ByteNova**. Cada carpeta es un proyecto
+independiente, estático y autocontenido (sin build), listo para desplegarse en Vercel.
 
 | Carpeta | Descripción |
 |---------|-------------|
 | [`smartline-fase-1/`](smartline-fase-1/) | Demo comercial interactiva **Fase 1 – Marketing + Medición** para Smartline: agentes de IA que planifican, crean, distribuyen y miden campañas en Meta, LinkedIn y TikTok (simulación). |
+| [`contrato-servicios/`](contrato-servicios/) | **Contrato de prestación de servicios** (personas naturales ↔ empresa, Colombia): página para editar, firmar y descargar en Word o PDF. Incluye los archivos `.docx` y `.pdf` en `plantilla/`. |
 
-Cada demo es autocontenida y tiene su propio `README.md` con instrucciones.
+La raíz del repositorio (`index.html`) muestra un índice con enlaces a cada proyecto.
 
 ## Despliegue en Vercel
 
-1. Importar este repositorio en Vercel (**Add New → Project → Import**).
-2. En **Root Directory** seleccionar la carpeta de la demo (por ejemplo `smartline-fase-1`).
-3. Framework Preset: **Other** (es un sitio estático, no hay build).
-4. **Deploy**.
+Opción A — un proyecto por carpeta (recomendado):
 
-Si se despliega el repositorio completo sin cambiar el Root Directory, la raíz redirige automáticamente a `/smartline-fase-1/` (ver `vercel.json`).
+1. **Add New → Project → Import** este repositorio.
+2. En **Root Directory** elegir la carpeta (`smartline-fase-1` o `contrato-servicios`).
+3. Framework Preset: **Other**, sin comando de build. **Deploy**.
+
+Opción B — todo el repositorio en un solo proyecto: sin cambiar el Root Directory, cada proyecto
+queda en su ruta (`/smartline-fase-1/`, `/contrato-servicios/`) y la raíz muestra el índice.
