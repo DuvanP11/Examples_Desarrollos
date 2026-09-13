@@ -113,22 +113,19 @@ button { font: inherit; }
 .brandbar__tagline { margin: 0; text-align: center; font-weight: 600; color: var(--navy); font-size: 1rem; }
 .brandbar .logo-box--smartline { justify-self: end; }
 
-/* Contenedor de logos: fondo claro y neutro para que los archivos
-   originales (que llevan su propio fondo) se integren sin filtros. */
+/* Logos: PNG con transparencia real (derivados de los originales sin
+   alterar colores ni proporciones); se apoyan directamente sobre el fondo. */
 .logo-box {
-  display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; color: var(--muted);
+  display: inline-flex; align-items: center; gap: .8rem; text-decoration: none; color: var(--muted);
 }
-.logo-box img {
-  height: 46px; width: auto; object-fit: contain; border-radius: 8px;
-  background: #fff; border: 1px solid var(--line); padding: 3px;
-}
-.logo-box--smartline img { height: 46px; }        /* 1542×688 → ~103px de ancho */
-.logo-box--bytenova img { height: 50px; }         /* 1036×1024 → ~50px */
+.logo-box img { height: 40px; width: auto; object-fit: contain; }
+.logo-box--smartline img { height: 40px; }        /* 1349×459 → ~118px de ancho */
+.logo-box--bytenova img { height: 52px; }         /* 900×917 → ~51px */
 .logo-box__caption { font-size: .72rem; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; }
-.logo-box--lg img { height: 72px; }
-.logo-box--lg.logo-box--bytenova img { height: 80px; }
-.logo-box--sm img { height: 34px; padding: 2px; }
-.logo-box--xs img { height: 24px; padding: 1px; border-radius: 5px; }
+.logo-box--lg img { height: 64px; }
+.logo-box--lg.logo-box--bytenova img { height: 88px; }
+.logo-box--sm img { height: 30px; }
+.logo-box--xs img { height: 20px; }
 
 /* ---------- navegación ------------------------------------------- */
 .topnav {
@@ -593,10 +590,10 @@ button { font: inherit; }
   .brandbar__inner { grid-template-columns: 1fr 1fr; }
   .brandbar__tagline { grid-column: 1 / -1; order: 3; font-size: .9rem; }
   .logo-box__caption { display: none; }
-  .logo-box img { height: 38px; }
-  .logo-box--bytenova img { height: 42px; }
-  .logo-box--lg img { height: 58px; }
-  .logo-box--lg.logo-box--bytenova img { height: 64px; }
+  .logo-box img { height: 32px; }
+  .logo-box--bytenova img { height: 44px; }
+  .logo-box--lg img { height: 50px; }
+  .logo-box--lg.logo-box--bytenova img { height: 70px; }
   .hero { padding: 2.5rem 0 2rem; }
   .hero__actions .btn { flex: 1 1 45%; }
   .section { padding: 3rem 0; }

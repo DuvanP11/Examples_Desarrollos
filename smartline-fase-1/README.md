@@ -73,8 +73,10 @@ smartline-fase-1/
     ├── js/config.js        # agentes, plataformas, métricas simuladas y tiempos
     ├── js/app.js           # renderizado, animaciones, secuencia de la demo, gráficos
     └── img/
-        ├── bytenova.jpeg   # logo ByteNova (original, sin modificar)
-        └── smartline.jpeg  # logo Smartline (original, sin modificar)
+        ├── bytenova.png    # logo ByteNova con transparencia (el que usa la web)
+        ├── smartline.png   # logo Smartline con transparencia (el que usa la web)
+        ├── bytenova.jpeg   # original entregado, sin modificar (referencia)
+        └── smartline.jpeg  # original entregado, sin modificar (referencia)
 ```
 
 ## Personalizar la demo
@@ -91,9 +93,10 @@ Todo lo que se muestra sale de `assets/js/config.js`:
 
 ## Recursos visuales
 
-Los logos están en `assets/img/` y son copias exactas de `Documentos/Imagenes/smartline.jpeg`
-y `bytenova.jpeg`. Se muestran sin filtros, sin recortes y con sus proporciones originales dentro
-de un contenedor claro. La tipografía **Inter** se carga desde Google Fonts (con alternativa del
+Los logos están en `assets/img/`. Los originales entregados (`smartline.jpeg`, `bytenova.jpeg`)
+traían un tablero de "transparencia" pintado dentro del JPEG, así que la web usa `smartline.png` y
+`bytenova.png`: los mismos logos con ese fondo eliminado y transparencia real, sin alterar colores
+ni proporciones. Los JPEG se conservan como referencia. La tipografía **Inter** se carga desde Google Fonts (con alternativa del
 sistema si no hay conexión); no hay otros recursos externos.
 
 ## Compatibilidad
