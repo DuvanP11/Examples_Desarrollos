@@ -212,7 +212,8 @@ window.PORTAFOLIO = {
       cats: ['Móvil'],
       stack: ['Kotlin', 'C', 'WebAssembly', 'Android'],
       texto: 'App Android para mirar el cielo: mapa que sigue al teléfono con sensores, 60.000 estrellas, planetas y constelaciones sin conexión, y modo cámara que superpone el cielo real. APK firmada y publicada.',
-      demo: 'https://astrology-nova-ten.vercel.app'
+      demo: 'https://astrology-nova-ten.vercel.app',
+      doc: 'https://github.com/DuvanP11/Astrology-Nova/releases/latest', docLabel: 'Descargar APK'
     },
     {
       nombre: 'Copiloto BTC',
@@ -227,7 +228,8 @@ window.PORTAFOLIO = {
       repo: 'NovaProtect',
       cats: ['IA', 'Móvil'],
       stack: ['Kotlin', 'TensorFlow Lite', 'Vosk', 'LightGBM'],
-      texto: 'Protección contra llamadas spam y estafas con dos motores en el dispositivo: riesgo por metadatos antes de contestar y análisis acústico para detectar grabadoras. Meta de precisión ≥ 0,98.'
+      texto: 'Protección contra llamadas spam y estafas con dos motores en el dispositivo: riesgo por metadatos antes de contestar y análisis acústico para detectar grabadoras. Meta de precisión ≥ 0,98.',
+      doc: 'https://github.com/DuvanP11/NovaProtect/blob/main/docs/NovaProtect_Arquitectura.pdf', docLabel: 'Ver informe técnico'
     },
     {
       nombre: 'Portal de empleos Colombia',
@@ -242,14 +244,16 @@ window.PORTAFOLIO = {
       repo: 'Nova-Budget',
       cats: ['Web', 'Móvil'],
       stack: ['JavaScript', 'PWA', 'SVG'],
-      texto: 'Finanzas personales para móvil: gastos fijos y variables, ahorro obligatorio, alertas de vencimientos y estadísticas. Funciona sin internet, se instala como app y los datos no salen del dispositivo.'
+      texto: 'Finanzas personales para móvil: gastos fijos y variables, ahorro obligatorio, alertas de vencimientos y estadísticas. Funciona sin internet, se instala como app y los datos no salen del dispositivo.',
+      demo: 'https://duvanp11.github.io/Nova-Budget/'
     },
     {
       nombre: 'Aprende Guitarra',
       repo: 'Guitar_Learning_APK',
       cats: ['IA', 'Web'],
       stack: ['JavaScript', 'Web Audio', 'MediaPipe'],
-      texto: 'Afinador por micrófono, acordes con cámara que dibuja la mano, lecciones paso a paso y cancionero con acordes sincronizados. Audio y vídeo se procesan en el navegador.'
+      texto: 'Afinador por micrófono, acordes con cámara que dibuja la mano, lecciones paso a paso y cancionero con acordes sincronizados. Audio y vídeo se procesan en el navegador.',
+      demo: 'https://duvanp11.github.io/Guitar_Learning_APK/'
     },
     {
       nombre: 'Reino del Saber',
@@ -257,14 +261,16 @@ window.PORTAFOLIO = {
       cats: ['Móvil'],
       stack: ['Python', 'Flutter', 'FastAPI'],
       texto: 'Juego educativo para niños de 9 a 11 años: mundos temáticos de matemáticas, XP, racha diaria y panel para profesores. Generador de más de 380 preguntas listo; app en desarrollo.',
-      estado: 'En desarrollo'
+      estado: 'En desarrollo',
+      doc: 'https://github.com/DuvanP11/Educational_Portal/blob/main/ROADMAP.md', docLabel: 'Ver plan del proyecto'
     },
     {
       nombre: 'Health mini app',
       repo: 'health-miniapp',
       cats: ['Web'],
       stack: ['HTML', 'JavaScript'],
-      texto: 'Mini aplicación de entrenamiento físico y mejora de salud.'
+      texto: 'Mini aplicación de entrenamiento físico y mejora de salud.',
+      demo: 'https://duvanp11.github.io/health-miniapp/'
     },
     {
       nombre: 'Sitio ByteNova',

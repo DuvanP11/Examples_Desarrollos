@@ -133,7 +133,7 @@
       <div class="project__top"><div><h3>${esc(p.nombre)}</h3><span class="project__repo">${esc(p.repo)}</span></div>${p.estado ? `<span class="tag tag--warn">${esc(p.estado)}</span>` : (p.demo ? '<span class="tag tag--ok">Publicado</span>' : '')}</div>
       <p>${esc(p.texto)}</p>
       <div class="project__stack">${p.stack.map((s) => `<span class="tag">${esc(s)}</span>`).join('')}</div>
-      <div class="project__links"><a class="btn btn--ghost" href="${repoUrl(p.repo)}" target="_blank" rel="noopener">${icon('github')} Código</a>${p.demo ? `<a class="btn btn--primary" href="${esc(p.demo)}" target="_blank" rel="noopener">${icon('link')} Ver en línea</a>` : ''}</div>
+      <div class="project__links"><a class="btn btn--ghost" href="${repoUrl(p.repo)}" target="_blank" rel="noopener">${icon('github')} Código</a>${p.demo ? `<a class="btn btn--primary" href="${esc(p.demo)}" target="_blank" rel="noopener">${icon('link')} Ver en línea</a>` : ''}${p.doc ? `<a class="btn btn--ghost" href="${esc(p.doc)}" target="_blank" rel="noopener">${icon('link')} ${esc(p.docLabel || 'Ver documento')}</a>` : ''}</div>
     </article>`).join('');
     $('#filtros').addEventListener('click', (e) => {
       const b = e.target.closest('[data-cat]'); if (!b) return;
