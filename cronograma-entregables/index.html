@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronograma de entregables · ByteNova → Smartline</title>
+  <meta name="description" content="Cronograma de entregables por fases del proyecto de automatización de marketing con agentes de IA para Smartline. Demo configurable.">
+  <link rel="icon" href="assets/img/bytenova.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="demo-strip" role="note">
+  <span class="demo-strip__tag">DEMO / SIMULACIÓN</span>
+  <span>Las fechas, avances y estados son de demostración y pueden configurarse desde esta página o en el archivo de datos.</span>
+</div>
+
+<header class="head">
+  <div class="container head__inner">
+    <div class="head__brand">
+      <img src="assets/img/bytenova.png" alt="Logo ByteNova" width="900" height="917" class="logo logo--bn">
+      <div>
+        <span class="eyebrow">Cronograma de entregables</span>
+        <h1 id="projNombre"></h1>
+        <p class="head__desc" id="projDesc"></p>
+      </div>
+    </div>
+    <div class="head__client">
+      <span class="head__client-label">Cliente</span>
+      <img src="assets/img/smartline.png" alt="Logo Smartline" width="1349" height="459" class="logo logo--sl">
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Barra de control -->
+  <section class="toolbar" aria-label="Controles">
+    <div class="toolbar__group">
+      <label class="ctl">
+        <span>Fecha de referencia</span>
+        <input type="date" id="refDate">
+      </label>
+      <button class="btn btn--ghost btn--sm" id="btnHoy" type="button">Hoy</button>
+      <button class="btn btn--ghost btn--sm" id="btnSimular" type="button" title="Avanza la fecha de referencia día a día para mostrar cómo evoluciona el cronograma">▶ Simular avance</button>
+    </div>
+    <div class="toolbar__group">
+      <label class="ctl">
+        <span>Escala</span>
+        <select id="escala">
+          <option value="dia">Días</option>
+          <option value="semana" selected>Semanas</option>
+        </select>
+      </label>
+      <div class="chips" id="faseChips" aria-label="Filtrar fases"></div>
+    </div>
+    <div class="toolbar__group toolbar__group--right">
+      <button class="btn btn--ghost btn--sm" id="btnEditar" type="button" aria-pressed="false"><svg class="ico"><use href="#i-edit"/></svg> Modo edición</button>
+      <button class="btn btn--ghost btn--sm" id="btnNuevaFase" type="button" hidden><svg class="ico"><use href="#i-plus"/></svg> Fase</button>
+      <button class="btn btn--ghost btn--sm" id="btnExportar" type="button">Exportar JSON</button>
+      <label class="btn btn--ghost btn--sm" for="inputImportar">Importar JSON</label>
+      <input type="file" id="inputImportar" accept="application/json,.json" hidden>
+      <button class="btn btn--ghost btn--sm" id="btnReset" type="button">Restablecer</button>
+    </div>
+  </section>
+
+  <!-- Indicadores -->
+  <section class="kpis" id="kpis" aria-label="Resumen"></section>
+
+  <!-- Gantt -->
+  <section class="panel">
+    <div class="panel__head">
+      <h2>Línea de tiempo</h2>
+      <div class="legend">
+        <span><i class="sw sw--completado"></i>Completado</span>
+        <span><i class="sw sw--encurso"></i>En curso</span>
+        <span><i class="sw sw--pendiente"></i>Pendiente</span>
+        <span><i class="sw sw--atrasado"></i>Atrasado</span>
+        <span><i class="sw sw--pordefinir"></i>Por definir</span>
+        <span><i class="sw sw--hoy"></i>Fecha de referencia</span>
+      </div>
+    </div>
+    <div class="gantt-wrap" id="ganttWrap"></div>
+  </section>
+
+  <!-- Detalle por fase -->
+  <section id="detalle" aria-label="Detalle de entregables"></section>
+
+</main>
+
+<footer class="foot">
+  <div class="container">
+    <p><strong>ByteNova</strong> construye la solución · <strong>Smartline</strong> la utiliza. Cronograma de demostración: los estados se calculan a partir del avance registrado y de la fecha de referencia; nada de lo que se edite sale de este navegador salvo que se exporte.</p>
+  </div>
+</footer>
+
+<!-- Panel de edición -->
+<div class="drawer" id="drawer" hidden>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <div class="drawer__head">
+      <h3 id="drawerTitle">Editar</h3>
+      <button class="iconbtn" id="drawerClose" type="button" aria-label="Cerrar"><svg class="ico"><use href="#i-x"/></svg></button>
+    </div>
+    <form id="drawerForm" class="form"></form>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="assets/js/datos.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
