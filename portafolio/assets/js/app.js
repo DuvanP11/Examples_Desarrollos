@@ -28,7 +28,7 @@
     $('#flujo').innerHTML = D.flujo.map((f, i) => `<li class="flow__step"><i>${i + 1}</i><div><strong>${esc(f.titulo)}</strong><span>${esc(f.texto)}</span></div></li>`).join('');
   }
   function animateCounters() {
-    $$('[data-count]').forEach((n) => {
+    $$('#heroStats [data-count]').forEach((n) => {
       const target = Number(n.dataset.count);
       if (reduce) { n.textContent = target; return; }
       const start = performance.now(), dur = 1100;
@@ -55,6 +55,20 @@
   }
 
   /* ---------- Picap ------------------------------------------------- */
+  const fmtNum = (v) => (typeof v === 'number' ? v.toLocaleString('es-CO') : esc(v));
+  function screenHtml(sc) {
+    let body = '';
+    if (sc.kpis) body += `<div class="scr__kpis">${sc.kpis.map(([l, v]) => `<div class="scr__kpi"><span>${esc(l)}</span><b ${typeof v === 'number' ? `data-count="${v}"` : ''}>${typeof v === 'number' ? '0' : esc(v)}</b></div>`).join('')}</div>`;
+    if (sc.barras) {
+      const max = Math.max(...sc.barras.items.map((i) => i[1]));
+      body += `<div class="scr__block"><h5>${esc(sc.barras.titulo)}</h5><div class="scr__bars">${sc.barras.items.map(([l, v]) => `<div class="scr__bar"><span>${esc(l)}</span><div class="scr__track"><i style="--w:${Math.round((v / max) * 100)}%"></i></div><b>${fmtNum(v)}</b></div>`).join('')}</div></div>`;
+    }
+    if (sc.tabla) body += `<div class="scr__block"><h5>${esc(sc.tabla.titulo)}</h5><table class="scr__table"><thead><tr>${sc.tabla.head.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${sc.tabla.rows.map((r) => `<tr>${r.map((c) => `<td class="${/✓/.test(c) ? 'is-ok' : (/⚠|No cumple|Rechazada/.test(c) ? 'is-bad' : '')}">${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    if (sc.timeline) body += `<div class="scr__block"><h5>${esc(sc.timeline.titulo)}</h5><ol class="scr__tl">${sc.timeline.items.map(([t, x]) => `<li><time>${esc(t)}</time><span>${esc(x)}</span></li>`).join('')}</ol></div>`;
+    return `<div class="screen"><div class="screen__bar"><i></i><i></i><i></i><span>${esc(sc.titulo)}</span><em>Simulación · datos ficticios</em></div><div class="screen__body">${body}</div></div>`;
+  }
+  const reglasHtml = (reglas) => `<div class="rules"><h4>Reglas que se aplicaron</h4><ol>${reglas.map(([t, x]) => `<li><div><b>${esc(t)}</b><span>${esc(x)}</span></div></li>`).join('')}</ol></div>`;
+
   function renderPicap() {
     const P = D.picap;
     $('#picapTitulo').textContent = `${P.empresa} · ${P.rol}`;
@@ -62,7 +76,12 @@
     $('#picapTabs').innerHTML = P.proyectos.map((p, i) => `<button class="tab" role="tab" type="button" aria-selected="${i === 0}" data-tab="${p.id}">${p.nombre}</button>`).join('');
     $('#picapPanels').innerHTML = P.proyectos.map((p, i) => {
       let body = '';
-      if (p.modulos) body += `<div class="modules">${p.modulos.map((m) => `<div class="module" tabindex="0"><strong>${esc(m.nombre)}</strong><p>${esc(m.texto)}</p></div>`).join('')}</div>`;
+      if (p.modulos) {
+        body += `<div class="modsel" data-modsel>${p.modulos.map((m, j) => `<button type="button" class="modsel__btn" aria-pressed="${j === 0}" data-mod="${j}">${esc(m.nombre)}</button>`).join('')}</div>`;
+        body += p.modulos.map((m, j) => `<div class="modview ${j === 0 ? 'is-active' : ''}" data-modview="${j}"><div class="modview__grid">${screenHtml(m.pantalla)}<div class="modview__side"><h4>Qué resuelve</h4><p>${esc(m.resuelve)}</p>${reglasHtml(m.reglas)}</div></div></div>`).join('');
+      } else {
+        body += `<div class="modview__grid">${screenHtml(p.pantalla)}<div class="modview__side">${reglasHtml(p.reglas)}</div></div>`;
+      }
       if (p.flujo) body += `<div class="pipeline" data-pipeline>${p.flujo.map((f, j) => `<div class="pipeline__step"><i>${j + 1}</i>${esc(f)}</div>${j < p.flujo.length - 1 ? `<span class="pipeline__arrow">${icon('arrow')}</span>` : ''}`).join('')}</div>`;
       if (p.resultados) body += `<div class="results">${p.resultados.map((r) => `<div class="result"><span class="result__label">${esc(r.label)}</span><div class="result__vals"><span class="result__antes">${esc(r.antes)}</span>${icon('arrow')}<span class="result__despues">${esc(r.despues)}</span></div></div>`).join('')}</div>`;
       if (p.nota) body += `<p class="pp__nota">${esc(p.nota)}</p>`;
@@ -71,15 +90,34 @@
         <div class="pp__head"><h3>${esc(p.nombre)}</h3><div class="pp__stack">${p.stack.map((s) => `<span class="tag">${esc(s)}</span>`).join('')}</div></div>
         <p class="pp__resumen">${esc(p.resumen)}</p>${body}${links}</div></div>`;
     }).join('');
+    if (P.construccion) $('#picapBuild').innerHTML = `<span class="build__label">Cómo se construyó cada módulo</span><div class="build__steps">${P.construccion.map((c, i) => `<span class="build__step"><i>${i + 1}</i>${esc(c)}</span>`).join('<span class="build__arrow">→</span>')}</div>`;
     $('#picapTabs').addEventListener('click', (e) => {
       const t = e.target.closest('[data-tab]'); if (!t) return;
       $$('[data-tab]').forEach((b) => b.setAttribute('aria-selected', String(b === t)));
       $$('[data-panel]').forEach((p) => p.classList.toggle('is-active', p.dataset.panel === t.dataset.tab));
-      const pipe = $(`[data-panel="${t.dataset.tab}"] [data-pipeline]`); if (pipe) animatePipeline(pipe);
+      const panel = $(`[data-panel="${t.dataset.tab}"]`);
+      const pipe = $('[data-pipeline]', panel); if (pipe) animatePipeline(pipe);
+      animateScreen($('.modview.is-active, .modview__grid', panel));
     });
-    $('#picapPanels').addEventListener('click', (e) => { const m = e.target.closest('.module'); if (m) m.classList.toggle('is-open'); });
-    $('#picapPanels').addEventListener('keydown', (e) => { const m = e.target.closest('.module'); if (m && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); m.classList.toggle('is-open'); } });
-    const first = $('#picapPanels .module'); if (first) first.classList.add('is-open');
+    $('#picapPanels').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-mod]'); if (!b) return;
+      const panel = b.closest('.tabpanel');
+      $$('[data-mod]', panel).forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      $$('[data-modview]', panel).forEach((v) => v.classList.toggle('is-active', v.dataset.modview === b.dataset.mod));
+      animateScreen($(`[data-modview="${b.dataset.mod}"]`, panel));
+    });
+  }
+  function animateScreen(root) {
+    if (!root) return;
+    $$('.scr__track i', root).forEach((i) => { i.style.width = '0%'; requestAnimationFrame(() => requestAnimationFrame(() => (i.style.width = ''))); });
+    $$('[data-count]', root).forEach((n) => {
+      const target = Number(n.dataset.count);
+      if (reduce) { n.textContent = target.toLocaleString('es-CO'); return; }
+      const start = performance.now(), dur = 900;
+      const tick = (now) => { const t = Math.min(1, (now - start) / dur); n.textContent = Math.round(target * (1 - Math.pow(1 - t, 3))).toLocaleString('es-CO'); if (t < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    });
+    $$('.scr__tl li', root).forEach((li, i) => { li.classList.remove('is-in'); setTimeout(() => li.classList.add('is-in'), 120 + i * 160); });
   }
   function animatePipeline(pipe) {
     const steps = $$('.pipeline__step', pipe);
@@ -129,6 +167,8 @@
     secs.forEach((id) => { const s = document.getElementById(id); if (s) nav.observe(s); });
     const pipeObs = new IntersectionObserver((entries) => entries.forEach((en) => { if (en.isIntersecting) { animatePipeline(en.target); pipeObs.unobserve(en.target); } }), { threshold: .3 });
     $$('[data-pipeline]').forEach((p) => pipeObs.observe(p));
+    const scrObs = new IntersectionObserver((entries) => entries.forEach((en) => { if (en.isIntersecting) { animateScreen(en.target); scrObs.unobserve(en.target); } }), { threshold: .25 });
+    $$('.tabpanel.is-active .modview.is-active, .tabpanel.is-active > .pp > .modview__grid').forEach((p) => scrObs.observe(p));
   }
 
   renderHero(); renderPilares(); renderPicap(); renderProyectos(); renderStack(); renderContacto();

@@ -28,10 +28,10 @@ excepto VocalIA (y su API), DuvanP11.github.io, Nova (asistente local) y Nova Me
 Sin dependencias ni build:
 
 ```bash
-cd portafolio
+git clone https://github.com/DuvanP11/Portafolio.git
+cd Portafolio
 python3 -m http.server 8080
 ```
 
-Vercel: **Add New → Project** → importar `DuvanP11/Examples_Desarrollos` → **Root Directory**
-`portafolio` → preset *Other* → **Deploy**. Si el repositorio completo ya está desplegado, queda
-en `/portafolio/`.
+Vercel: **Add New → Project** → importar `DuvanP11/Portafolio` → preset *Other*, sin build ni
+Root Directory → **Deploy**. Cada `git push` a `main` redespliega.
