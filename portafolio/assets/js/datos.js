@@ -207,15 +207,6 @@ window.PORTAFOLIO = {
   categorias: ['Todos', 'IA', 'Datos', 'Móvil', 'Web', 'Automatización'],
   proyectos: [
     {
-      nombre: 'Demos comerciales ByteNova',
-      repo: 'Examples_Desarrollos',
-      cats: ['IA', 'Web', 'Automatización'],
-      stack: ['HTML', 'CSS', 'JavaScript', 'Vercel'],
-      texto: 'Demostración interactiva de marketing con agentes de IA (Fase 1 para Smartline), contrato de servicios editable con firma y exportación a Word/PDF, y cronograma de entregables configurable.',
-      demo: 'https://examples-desarrollos.vercel.app',
-      destacado: true
-    },
-    {
       nombre: 'Astrology Nova',
       repo: 'Astrology-Nova',
       cats: ['Móvil'],
